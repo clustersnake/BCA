@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BCA.API/BCA.API.csproj" />
+    <Project Path="src/BCA.Application/BCA.Application.csproj" />
+    <Project Path="src/BCA.Domain/BCA.Domain.csproj" />
+    <Project Path="src/BCA.Infrastructure/BCA.Infrastructure.csproj" />
+    <Project Path="src/BCA.Web/BCA.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BCA.UnitTests/BCA.UnitTests.csproj" />
+  </Folder>
+</Solution>
