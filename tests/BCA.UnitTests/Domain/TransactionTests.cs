@@ -21,6 +21,21 @@ public class TransactionTests
 
     }
 
+    [Fact]
+    public void Withdeawal_ShouldFailIfInsufficientFunds()
+    {
+        // Arrange
+        var account = CreateTestAccount();
+
+        decimal withdrawalAmount = -100;
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => account.AddTransaction(TransactionType.Withdrawal, withdrawalAmount));
+    
+        Assert.Equal("Fondos insuficientes para realizar el retiro.", exception.Message);
+    }
+
+
     private Account CreateTestAccount()
     {
         var role = new Role { Name = "Client" };

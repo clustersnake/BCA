@@ -9,13 +9,19 @@ public class Account
     public decimal Balance { get; private set; } = 0;
     public required User Owner { get; set; }
     public required Product ProductType { get; set; }
-    
+
     // Lista de transacciones asociadas
-    public List<Transaction> Transactions { get; private set; } = new();
+    public List<Transaction> Transactions { get; private set; } = [];
 
     public void AddTransaction(TransactionType type, decimal amount)
     {
         if (amount <= 0) throw new ArgumentException("El monto debe ser positivo");
+
+        // Lógica de validación para retiros
+        if (type == TransactionType.Withdrawal && amount > Balance)
+        {
+            throw new InvalidOperationException("Fondos insuficientes para realizar el retiro.");
+        }
 
         var transaction = new Transaction
         {
