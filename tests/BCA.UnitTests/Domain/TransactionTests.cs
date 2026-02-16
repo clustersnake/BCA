@@ -1,5 +1,5 @@
-using BCA.Domain.Entities;
 using BCA.Domain.Enums;
+using BCA.UnitTests.Common;
 
 namespace BCA.UnitTests.Domain;
 
@@ -9,7 +9,7 @@ public class TransactionTests
     public void Deposit_ShouldIncreaseAccountBalance()
     {
         // Arrange
-        var account = CreateTestAccount();
+        var account = TestDataFactory.CreateAccount();
 
         decimal depositAmount = 100;
 
@@ -25,28 +25,15 @@ public class TransactionTests
     public void Withdeawal_ShouldFailIfInsufficientFunds()
     {
         // Arrange
-        var account = CreateTestAccount();
+        var account = TestDataFactory.CreateAccount(initialDeposit: 50);
 
-        decimal withdrawalAmount = -100;
+        decimal withdrawalAmount = 100;
 
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => account.AddTransaction(TransactionType.Withdrawal, withdrawalAmount));
-    
+
         Assert.Equal("Fondos insuficientes para realizar el retiro.", exception.Message);
     }
 
 
-    private Account CreateTestAccount()
-    {
-        var role = new Role { Name = "Client" };
-        var user = new User { FirstName = "Test", LastName = "User", Role = role };
-        var product = new Product { Name = "Savings", InterestRate = 0.1m };
-
-        return new Account
-        {
-            AccountNumber = "12345",
-            Owner = user,
-            ProductType = product
-        };
-    }
 }
