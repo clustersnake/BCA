@@ -23,6 +23,25 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 // ...
+// Bloque para ejecutar el Seed
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<BcaDbContext>();
+        // Esto aplica migraciones pendientes y crea la DB si no existe
+        context.Database.Migrate();
+        // Ejecuta nuestro Seed
+        DbInitializer.Seed(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocurrió un error al sembrar la base de datos.");
+    }
+}
+
 
 if (app.Environment.IsDevelopment())
 {
