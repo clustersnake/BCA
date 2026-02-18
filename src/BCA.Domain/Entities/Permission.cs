@@ -1,8 +1,8 @@
-﻿namespace BCA.Domain.Entities;
+﻿using BCA.Domain.Common;
+namespace BCA.Domain.Entities;
 
-public class Permission
+public class Permission : BaseEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
     public required string Name { get; set; }
     public string? Description { get; set; }
 

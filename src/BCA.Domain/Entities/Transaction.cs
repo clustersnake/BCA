@@ -1,10 +1,10 @@
 using BCA.Domain.Enums;
+using BCA.Domain.Common;
 
 namespace BCA.Domain.Entities;
 
-public class Transaction
+public class Transaction : BaseEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
     public Guid AccountId { get; set; }
     public decimal Amount { get; set; }
     public TransactionType Type { get; set; }
