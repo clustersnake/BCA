@@ -17,8 +17,8 @@ builder.Services.AddDbContext<BcaDbContext>(options =>
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 // 3. Registrar Servicios (Application)
-builder.Services.AddScoped<DepositService>();
-builder.Services.AddScoped<WithdrawalService>();
+builder.Services.AddScoped<IDepositService, DepositService>();
+builder.Services.AddScoped<IWithdrawalService, WithdrawalService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 

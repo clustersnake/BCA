@@ -1,10 +1,11 @@
 using BCA.Domain.Interfaces;
 using BCA.Domain.Enums;
 using BCA.Domain.Common;
+using BCA.Application.Interfaces;
 
 namespace BCA.Application.Services;
 
-public class WithdrawalService
+public class WithdrawalService : IWithdrawalService
 {
     private readonly IAccountRepository _repository;
 

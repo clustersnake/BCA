@@ -1,11 +1,11 @@
 ﻿using BCA.Domain.Interfaces;
 using BCA.Domain.Enums;
-using System.Reflection.Metadata.Ecma335;
 using BCA.Domain.Common;
+using BCA.Application.Interfaces;
 
 namespace BCA.Application.Services;
 
-public class DepositService
+public class DepositService : IDepositService
 {
     private readonly IAccountRepository _repository;
 
