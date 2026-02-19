@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using BCA.Infrastructure.Persistence;
 using BCA.Infrastructure.Repositories;
 using BCA.Domain.Interfaces;
+using BCA.Application.Interfaces;
 using BCA.Application.Services;
 using BCA.API.Middleware;
 
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<DepositService>();
 builder.Services.AddScoped<WithdrawalService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 // ... resto de la configuración (Swagger, etc.)

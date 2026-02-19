@@ -18,22 +18,16 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByIdAsync(Guid id) =>
         await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
 
-    public async Task<IEnumerable<User>> GetPagedAsync(int pageNumber, int pageSize)
+    public async Task<(IEnumerable<User> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize)
     {
         var query = _context.Users.Include(u => u.Role).AsNoTracking();
 
-        var totalCount = await query.CountAsync();
-        return await query
+        var totalCount = await query.CountAsync(); // Obtenemos el total real en la DB
+        var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
 
-        // return new IEnumerable<User>
-        // {
-        //     Items = items,
-        //     PageNumber = pageNumber,
-        //     PageSize = pageSize,
-        //     TotalCount = totalCount
-        // };
+        return (items, totalCount); // Devolvemos ambos valores
     }
 }

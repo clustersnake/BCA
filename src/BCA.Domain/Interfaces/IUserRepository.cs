@@ -6,5 +6,6 @@ public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllAsync();
     Task<User?> GetByIdAsync(Guid id);
-     Task<IEnumerable<User>> GetPagedAsync(int pageNumber, int pageSize);
+    // El repositorio devuelve los datos + el conteo total
+    Task<(IEnumerable<User> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize);
 }
