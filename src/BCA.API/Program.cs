@@ -3,6 +3,7 @@ using BCA.Infrastructure.Persistence;
 using BCA.Infrastructure.Repositories;
 using BCA.Domain.Interfaces;
 using BCA.Application.Services;
+using BCA.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 // 3. Registrar Servicios (Application)
 builder.Services.AddScoped<DepositService>();
 builder.Services.AddScoped<WithdrawalService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();
 // ... resto de la configuración (Swagger, etc.)
@@ -47,7 +49,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.UseMiddleware<ExceptionMiddleware>();
 
+app.MapControllers();
 
 app.Run();
 
