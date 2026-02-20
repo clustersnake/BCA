@@ -1,5 +1,4 @@
 using NSubstitute;
-using Xunit;
 using BCA.Domain.Interfaces;
 using BCA.UnitTests.Common;
 using BCA.Application.Services;
