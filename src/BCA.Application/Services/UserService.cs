@@ -1,4 +1,5 @@
 using BCA.Application.Common;
+using BCA.Application.DTOs;
 using BCA.Application.Interfaces;
 using BCA.Domain.Entities;
 using BCA.Domain.Interfaces;
@@ -14,17 +15,26 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<PagedResult<User>> GetUsersPagedAsync(int page, int pageSize)
+    public async Task<PagedResult<UserResponse>> GetUsersPagedAsync(int page, int pageSize)
     {
         // 1. Llamada al repositorio (Capa Infrastructure)
-        var (items, totalCount) = await _userRepository.GetPagedAsync(page, pageSize);
+        var (users, totalCount) = await _userRepository.GetPagedAsync(page, pageSize);
 
         // 2. Aquí podrías aplicar lógica extra (ej. filtrar, mapear a DTOs, etc.)
+        var userDtos = users.Select(u => new UserResponse
+        {
+            Id = u.Id,
+            FullName = $"{u.FirstName} {u.LastName}",
+            Email = u.Email,
+            RoleName = u.Role.Name ?? "No Role",
+            IsActive = u.IsActive,
+            CreatedAt = u.CreatedAt
+        });
 
         // 3. Empaquetado final para la capa de presentación
-        return new PagedResult<User>
+        return new PagedResult<UserResponse>
         {
-            Items = items,
+            Data = userDtos,
             PageNumber = page,
             PageSize = pageSize,
             TotalCount = totalCount

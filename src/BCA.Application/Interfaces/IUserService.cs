@@ -1,9 +1,9 @@
 using BCA.Application.Common;
-using BCA.Domain.Entities;
+using BCA.Application.DTOs;
 
 namespace BCA.Application.Interfaces;
 
 public interface IUserService
 {
-    Task<PagedResult<User>> GetUsersPagedAsync(int page, int pageSize);
+    Task<PagedResult<UserResponse>> GetUsersPagedAsync(int page, int pageSize);
 }
